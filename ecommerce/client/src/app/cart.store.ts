@@ -20,7 +20,7 @@ export class CartStore extends ComponentStore<CartState> {
     });
   }
 
-  // Selectors
+  // Selectors (Looking into the current state of the properties)
   readonly lineItems$: Observable<LineItem[]> = this.select(state => state.lineItems);
   
   readonly uniqueProductCount$: Observable<number> = this.select(

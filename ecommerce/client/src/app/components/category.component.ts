@@ -12,7 +12,6 @@ import {ActivatedRoute} from '@angular/router';
 export class CategoryComponent implements OnInit {
 
   // NOTE: you are free to modify this component
-
   private prodSvc = inject(ProductService)
   private activatedRoute = inject(ActivatedRoute)
 
