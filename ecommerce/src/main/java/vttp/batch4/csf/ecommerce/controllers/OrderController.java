@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
-import vttp.batch4.csf.ecommerce.models.LineItem;
 import vttp.batch4.csf.ecommerce.models.Order;
 import vttp.batch4.csf.ecommerce.services.PurchaseOrderService;
 
@@ -32,39 +31,11 @@ public class OrderController {
     try {
       System.out.println("Received order: " + order);
 
-      // Validate order data before processing
-      if (order.getName() == null || order.getName().isEmpty()) {
-        return ResponseEntity.badRequest().body(
-            Json.createObjectBuilder()
-                .add("error", "Customer name is required")
-                .build().toString());
-      }
-
-      if (order.getAddress() == null || order.getAddress().isEmpty()) {
-        return ResponseEntity.badRequest().body(
-            Json.createObjectBuilder()
-                .add("error", "Delivery address is required")
-                .build().toString());
-      }
-
-      if (order.getCart() == null || order.getCart().getLineItems() == null
-          || order.getCart().getLineItems().isEmpty()) {
-        return ResponseEntity.badRequest().body(
-            Json.createObjectBuilder()
-                .add("error", "Cart cannot be empty")
-                .build().toString());
-      }
-
-      // Debug info about line items
-      System.out.println("Line items count: " + order.getCart().getLineItems().size());
-      for (LineItem item : order.getCart().getLineItems()) {
-        System.out.println("Line item: " + item);
-      }
-
-      // Process the order
+      // Process the order - this should be inside a transaction
+      // The service layer will handle validation and DB operations
       poSvc.createNewPurchaseOrder(order);
 
-      // Return success response
+      // If we reach here, the order was processed successfully
       JsonObject resp = Json.createObjectBuilder()
           .add("orderId", order.getOrderId())
           .add("status", "success")
@@ -74,7 +45,7 @@ public class OrderController {
     } catch (Exception ex) {
       ex.printStackTrace();
 
-      // Return detailed error information
+      // Create a detailed error response
       JsonObject resp = Json.createObjectBuilder()
           .add("error", "Error processing order: " + ex.getMessage())
           .add("details", ex.getClass().getName())

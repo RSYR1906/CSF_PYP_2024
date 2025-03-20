@@ -3,7 +3,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CartStore } from '../cart.store';
-import { LineItem, Order } from '../models';
+import { LineItem } from '../models';
 import { ProductService } from '../product.service';
 
 @Component({
@@ -52,23 +52,24 @@ export class ConfirmCheckoutComponent implements OnInit {
   // Submit the order
   submitOrder(): void {
     if (this.orderForm.valid) {
-      // Ensure line items have all required fields
-      const validatedLineItems = this.lineItems.map(item => {
+      // Transform line items to match backend expectations
+      // The key change is mapping 'prodId' to 'productId' for the backend
+      const transformedLineItems = this.lineItems.map(item => {
         return {
-          prodId: item.prodId || 'Unknown ID',
-          name: item.name || 'Unknown Product', // Ensure name is not empty
-          quantity: item.quantity || 1, // Ensure quantity is not zero
-          price: item.price || 0 // Ensure price is not null
+          productId: item.prodId, // Map prodId to productId for Java backend
+          name: item.name || 'Unknown Product',
+          quantity: item.quantity || 1,
+          price: item.price || 0
         };
       });
       
-      const order: Order = {
+      const order: any = {
         name: this.orderForm.value.name,
         address: this.orderForm.value.address,
         priority: this.orderForm.value.priority || false,
         comments: this.orderForm.value.comments || '',
         cart: {
-          lineItems: validatedLineItems
+          lineItems: transformedLineItems
         }
       };
       
