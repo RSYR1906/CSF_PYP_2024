@@ -1,4 +1,4 @@
 TODO Task 1
 
 Write the command to import products.csv into Mongo in this file
-mongoimport --host localhost --port 27017 --type csv --db csf_pyp_2024 --collection products --headerline --file products.csv 
+mongoimport --uri "mongodb://mongo:zDbshBPBRDyiXhQSQrktwowrscYCrwPm@trolley.proxy.rlwy.net:24446/csf_pyp_2024?authSource=admin" --type csv --db csf_pyp_2024 --collection products --headerline --file products.csv
