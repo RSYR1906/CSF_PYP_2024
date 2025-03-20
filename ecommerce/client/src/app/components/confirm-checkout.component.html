@@ -1,35 +1,35 @@
 <h2>Checkout</h2>
 
-<form>
+<form [formGroup]="orderForm" (submit)="submitOrder()">
   <table>
     <tr>
       <td>Name: </td>
       <td>
-        <input type="text" size="30">
+        <input type="text" size="30" formControlName="name">
       </td>
     </tr>
     <tr>
       <td>Address: </td>
       <td>
-        <input type="text" size="30">
+        <input type="text" size="30" formControlName="address">
       </td>
     </tr>
     <tr>
       <td>Priority: </td>
       <td>
-        <input type="checkbox">
+        <input type="checkbox" formControlName="priority">
       </td>
     </tr>
     <tr>
       <td>Comments: </td>
       <td>
-        <textarea cols="30" rows="4"></textarea>
+        <textarea cols="30" rows="4" formControlName="comments"></textarea>
       </td>
     </tr>
     <tr>
       <td></td>
       <td>
-        <button type="submit">Place Order</button>
+        <button type="submit" [disabled]="orderForm.invalid">Place Order</button>
       </td>
     </tr>
   </table>
@@ -46,15 +46,17 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td> Apple </td>
-      <td> 0.5 </td>
-      <td> 6 </td>
+    <tr *ngFor="let item of lineItems">
+      <td>{{ item.name }}</td>
+      <td>{{ item.price | currency: 'INR' }}</td>
+      <td>{{ item.quantity }}</td>
     </tr>
   </tbody>
   <tfoot>
-    <td></td>
-    <td>Total: </td>
-    <td> 100 </td>
+    <tr>
+      <td></td>
+      <td>Total: </td>
+      <td>{{ calculateTotal() | currency: 'INR' }}</td>
+    </tr>
   </tfoot>
 </table>

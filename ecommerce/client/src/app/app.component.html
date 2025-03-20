@@ -7,7 +7,7 @@
   </div>
 
   <div class="title-b">
-    <button type="button" (click)="checkout()">Checkout</button>
+    <button type="button" (click)="checkout()" [disabled]="!(hasItems$ | async)">Checkout</button>
   </div>
 
   <div class="title-c">
