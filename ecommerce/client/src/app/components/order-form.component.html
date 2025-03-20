@@ -1,0 +1,8 @@
+<form [formGroup]="form" (submit)="addToCart()">
+  <div>
+    Quantity: <input type="number" value="1" min="1" formControlName="quantity">
+  </div>
+  <div>
+    <button type="submit" [disabled]="form.invalid">Add</button>
+  </div>
+</form>

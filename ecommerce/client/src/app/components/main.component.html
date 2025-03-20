@@ -1,0 +1,7 @@
+<h2>Product Categories</h2>
+
+<div *ngIf="categories$ | async as cat">
+  <div *ngFor="let c of cat" class="cat-text" (click)="viewCategory(c)">
+    {{ c }}
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="title">
+  <div class="title-a"> <img src="/assets/kwikemart.png"> </div>
+
+  <div class="title-d">
+    <h3>Item in cart</h3>
+    <h1> <code>{{ itemCount }}</code> </h1>
+  </div>
+
+  <div class="title-b">
+    <button type="button" (click)="checkout()">Checkout</button>
+  </div>
+
+  <div class="title-c">
+    <button type="button" [routerLink]="['/']">Back</button>
+  </div>
+</div>
+
+<router-outlet />

@@ -1,0 +1,63 @@
+/* You can add global styles to this file, and also import other style files */
+
+.title {
+  display: grid;
+  grid-template-areas:
+    "a a d b "
+    "a a d b "
+    "a a d c "
+    "a a d c ";
+}
+
+.title-a {
+  grid-area: a;
+}
+
+.title-b {
+  grid-area: b;
+}
+
+.title-c {
+  grid-area: c;
+}
+.title-d {
+  grid-area: d;
+}
+
+.cat-text {
+  font-size: 2em;
+  margin: .2em;
+}
+
+.cat-text:hover {
+  color: blue;
+}
+
+.order-form {
+  border-left: 1px dashed grey;
+  padding-left: .8em;
+}
+
+.prod-order {
+  display: grid;
+  grid-template-columns: 5fr 2fr;
+  grid-template-rows: auto;
+  border: 1px solid grey;
+  border-radius: 8px;
+  padding: .4em;
+  margin-bottom: .4em;
+}
+
+.prod {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+
+.prod-detail {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+
+code {
+  color: green;
+}

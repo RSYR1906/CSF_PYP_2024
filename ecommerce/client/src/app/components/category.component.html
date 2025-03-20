@@ -1,0 +1,26 @@
+<h2>Products for {{ category }}</h2>
+
+<div *ngIf="products$ | async as products">
+  <div *ngIf="products.length > 0">
+    <div *ngFor="let p of products" class="prod-order">
+      <div class="prod">
+        <div>
+          <img [src]="p.image" width="100">
+        </div>
+        <div class="prod-detail">
+          Name: <span>{{ p.name }}</span>
+          Brand: <span>{{ p.brand }}</span>
+          Price: <span>{{ p.price | currency:"INR" }}</span>
+          Discount: <span>{{ p.discountPrice | currency:"INR" }}</span>
+          Quantity: <span>{{ p.quantity }}</span>
+        </div>
+      </div>
+      <div class="order-form">
+        <app-order-form [productId]="p.prodId"/>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="products.length <= 0">
+    <h3>No products found in this category</h3>
+  </div>
+</div>
